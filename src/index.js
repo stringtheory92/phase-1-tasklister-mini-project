@@ -1,4 +1,5 @@
 // For weather by city to function, need to source state codes for fetch url
+//Next to add: persist tasks to db.json
 
 document.addEventListener("DOMContentLoaded", () => {
   // your code here
@@ -132,7 +133,22 @@ const getWeatherByZip = (zip) => {
   //submitBtn.addEventListener('click', handleSubmit)
   form.addEventListener('submit', handleSubmit)
 
-  
+  const postFetch = (url, configObj) => {
+    return fetch(url, configObj)
+    .then(res => res.json())
+    .then(data => data)
+  }
+
+  const configObjMaker = (body) => {
+    return {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        'accept': 'application/json'
+      },
+      body: JSON.stringify(body), 
+    }
+  }
   // Create li for tasks
   const createTodo = toDo => {
     
@@ -141,12 +157,13 @@ const getWeatherByZip = (zip) => {
     
     li.className = 'todo-item'
     
+    postFetch('http://localhost:3000/tasks', configObjMaker({task: toDo}))
+
     deleteBtn.addEventListener('click', e => {
       e.preventDefault();
       const parent = e.target.parentElement;
       parent.remove();
     })
-
 
     li.textContent = toDo;
     deleteBtn.textContent = 'X';
