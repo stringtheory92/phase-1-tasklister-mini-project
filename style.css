@@ -102,3 +102,27 @@ button {
   text-align: center;
   padding-bottom: 0.5rem;
 }
+
+#delete-button {
+  margin-left: 0.5rem;
+  height: 1rem;
+  border: none;
+  outline: none;
+ 
+  background-color: rgba(255, 255, 255, 0);
+}
+#delete-button:active {
+  background-color: rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.07)
+}
+/*----- list item priority colors -------*/
+#blue {
+  color: rgb(25, 102, 255);
+}
+#orange {
+  color: rgb(186, 127, 0);
+}
+#red {
+  color:rgb(209, 0, 0);
+}
+

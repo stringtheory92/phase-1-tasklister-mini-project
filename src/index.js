@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const form = document.querySelector("#create-task-form")
   const submitBtn = document.querySelector('#new-task-submit')
   const textField = document.querySelector("#new-task-description")
+  const selectMenu = document.querySelector('#priority-menu')
   const list = document.querySelector('#list');
   const weatherForm = document.querySelector('#weather-form');
   const cityInput = document.querySelector('#city-input');
@@ -116,21 +117,25 @@ const getWeatherByZip = (zip) => {
     .then(res => res.json())
     .then(data => data)
 }
-//getWeather('Maplewood');
 //==============================================  
-  // Click Submit Button and Handle Event
+
+//====== Task Lister ==============================
+
+//sort tasks by urgency
+const sortTasks = () => {
+
+}
 
 
 
-  // Handle Fns
+  // Submit Task functionality
   const handleSubmit = e => {
     e.preventDefault();
-    console.log(textField.value)
-    createTodo(textField.value);
+    console.log(textField.value, selectMenu.value)
+    createTodo(textField.value, selectMenu.value);
     textField.value = '';
   }
   
-  //submitBtn.addEventListener('click', handleSubmit)
   form.addEventListener('submit', handleSubmit)
 
   const postFetch = (url, configObj) => {
@@ -150,14 +155,16 @@ const getWeatherByZip = (zip) => {
     }
   }
   // Create li for tasks
-  const createTodo = toDo => {
+  const createTodo = (toDo, priority) => {
     
     const li = document.createElement('li');
     const deleteBtn = document.createElement('button')
     
     li.className = 'todo-item'
     
-    postFetch('http://localhost:3000/tasks', configObjMaker({task: toDo}))
+    
+    // postFetch('http://localhost:3000/tasks', configObjMaker({task: toDo}))
+    // .then(res => console.log(res))
 
     deleteBtn.addEventListener('click', e => {
       e.preventDefault();
@@ -167,14 +174,29 @@ const getWeatherByZip = (zip) => {
 
     li.textContent = toDo;
     deleteBtn.textContent = 'X';
-    li.appendChild(deleteBtn)
-    list.appendChild(li)
-  }
+    deleteBtn.id = 'delete-button'
 
-  // Append li to ul#tasks
-  const appendTodo = toDo => {
+    if (priority === 'backburner') li.id = 'blue';
+    if (priority === 'moderate') li.id = 'orange';
+    if (priority === 'urgent') li.id = 'red';
+    console.log(list.hasChildNodes(), priority)
+    //sort and attach:
+    // if (list.hasChildNodes()) {
+    //   console.log('hi again')
+    //   const blues = document.querySelector('#blue')
+    //   const oranges = document.querySelector('#orange')
+    //   const reds = document.querySelector('#red')
+    //   if (li.id === 'blue') blues.append(li)
+    //   if (li.id === 'orange') oranges.append(li)
+    //   if (li.id === 'red') reds.append(li)
+    // }
+     
+      li.appendChild(deleteBtn)
+      list.appendChild(li)
     
   }
+
+ 
 
   
 
