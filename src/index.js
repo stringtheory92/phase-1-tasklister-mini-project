@@ -1,3 +1,5 @@
+// For weather by city to function, need to source state codes for fetch url
+
 document.addEventListener("DOMContentLoaded", () => {
   // your code here
   const form = document.querySelector("#create-task-form")
@@ -10,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const weatherDisplay = document.querySelector('#weather-display')
   const currentWeatherDiv = document.querySelector('#current-weather')
   const weatherDetails = document.querySelector('#weather-details')
+  const cityName = document.querySelector('#city-name')
   let zip;
 
 // ========== Day Stuff =============
@@ -86,7 +89,9 @@ const handleWeatherSubmit = e => {
       const high = obj.main.temp_max;
       const low = obj.main.temp_min;
       const weather = obj.weather[0].description;
-    
+      const city = obj.name;
+      
+      cityName.textContent = `Your ${city} Weather:`
       currentWeatherDiv.textContent = `It's currently ${currentTemp.toFixed(0)}F with ${weather}.`;
       weatherDetails.textContent = `Feels like ${feelsLike.toFixed(0)}F
       with a high of ${high.toFixed(0)}F
@@ -134,7 +139,7 @@ const getWeatherByZip = (zip) => {
     const li = document.createElement('li');
     const deleteBtn = document.createElement('button')
     
-    
+    li.className = 'todo-item'
     
     deleteBtn.addEventListener('click', e => {
       e.preventDefault();

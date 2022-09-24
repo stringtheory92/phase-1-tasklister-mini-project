@@ -59,7 +59,7 @@ button {
   padding: 15px 20px 18px 18px;
   border-radius: 5px;
   box-shadow: 2px 5px 5px #333;
-  text-align: center;
+  
 }
 
 #city-input, #new-task-description {
@@ -91,4 +91,14 @@ button {
   font-weight: 500;
   padding: 0.3rem;
   
+}
+
+.todo-item {
+  list-style-type: disclosure-closed;
+  padding-left: 2rem;
+}
+
+#list h2 {
+  text-align: center;
+  padding-bottom: 0.5rem;
 }
