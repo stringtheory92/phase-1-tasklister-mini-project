@@ -1,5 +1,10 @@
 // For weather by city to function, need to source state codes for fetch url
-//Next to add: persist tasks to db.json
+//Next to add: persist tasks to db.json and add priority sorting
+
+  // fetch problem => fetch post refreshes browser, clearing tasks. it saves task to 
+  // localhost:3000/tasks on the web, but not to db.json file in this directory. 
+
+  // 
 
 document.addEventListener("DOMContentLoaded", () => {
   // your code here
@@ -180,9 +185,9 @@ const sortTasks = () => {
     deleteBtn.textContent = 'X';
     deleteBtn.id = 'delete-button'
 
-    if (priority === 'backburner') li.className = 'blue';
-    if (priority === 'moderate') li.className = 'orange';
-    if (priority === 'urgent') li.className = 'red';
+    if (priority === 'backburner') li.className = 'blue todo-item';
+    if (priority === 'moderate') li.className = 'orange todo-item';
+    if (priority === 'urgent') li.className = 'red todo-item';
     //sort and attach:
     console.log(list.hasChildNodes(), priority)
      if (tasks.hasChildNodes()) {
