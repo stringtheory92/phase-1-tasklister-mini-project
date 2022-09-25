@@ -4,7 +4,11 @@
   // fetch problem => fetch post refreshes browser, clearing tasks. it saves task to 
   // localhost:3000/tasks on the web, but not to db.json file in this directory. 
 
-  // 
+  // sort problem => sort code doesn't work. can isolate the first in a group of same priority
+  // with querySelectorAll()[0], but can't get tasks.insertBefore() to work
+
+  // city weather problem => need to write function to convert state to state code for weather 
+  // endpoint query. Might need another fetch or even another api for this. 
 
 document.addEventListener("DOMContentLoaded", () => {
   // your code here
@@ -63,11 +67,6 @@ const handleWeatherSubmit = e => {
         const handleBtn = e => {
           e.preventDefault();
           console.log(btn.id)
-        // for (location of data) {
-        //   console.log(location)
-        //   if (location.state === btn.id) 
-        //     console.log(`You're in ${location.city}, ${location.state}`)
-        // }
         }
       //Creates state buttons with unique IDs and common class
         for (let location of data) {
@@ -106,10 +105,8 @@ const handleWeatherSubmit = e => {
       and a low of ${low.toFixed(0)}F`
     });
   }
-  
 }
 weatherForm.addEventListener('submit', handleWeatherSubmit);
-
 
 const getWeatherByCity = (city) => {
   const apiByCity = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=ac4519ef112c6f4cc9a4b2e01e44fe76&units=imperial`
@@ -131,8 +128,6 @@ const getWeatherByZip = (zip) => {
 const sortTasks = () => {
 
 }
-
-
 
   // Submit Task functionality
   const handleSubmit = e => {
@@ -162,19 +157,19 @@ const sortTasks = () => {
   }
   // Create li for tasks
   const createTodo = (toDo, priority) => {
-    
+
+//=================== PROBLEM CODE ===============================
     // postFetch('http://localhost:3000/tasks', configObjMaker({task: toDo, priority}))
     // .then(res => res)
     // .then(data => console.log(data))
     // .catch(e => console.error('Problem posting: ', e))
+//===============================================================
 
     const li = document.createElement('li');
     const deleteBtn = document.createElement('button')
     
-    li.className = 'todo-item'
+    //li.classList = 'todo-item'
     
-    
-
     deleteBtn.addEventListener('click', e => {
       e.preventDefault();
       const parent = e.target.parentElement;
@@ -188,8 +183,11 @@ const sortTasks = () => {
     if (priority === 'backburner') li.className = 'blue todo-item';
     if (priority === 'moderate') li.className = 'orange todo-item';
     if (priority === 'urgent') li.className = 'red todo-item';
+
+//=============================== PROBLEM CODE =====================================
     //sort and attach:
-    console.log(list.hasChildNodes(), priority)
+    console.log(tasks.hasChildNodes(), priority)
+    if (!tasks.hasChildNodes()) console.log('first child')
      if (tasks.hasChildNodes()) {
        console.log('hi again')
         const blues = document.querySelector('.blue')
@@ -197,13 +195,12 @@ const sortTasks = () => {
         console.log(document.querySelectorAll('.orange')[0]);
     //   const oranges = document.querySelector('#orange')
     //   const reds = document.querySelector('#red')
-       if (li.className === 'blue') tasks.insertBefore(li, document.querySelectorAll('.orange')[0])}
-       //if (li.id === 'orange') tasks.insertBefore(li, document.querySelector('.red'))
-    //   if (li.id === 'red') reds.append(li)
-    // }
-     
+      // if (li.className === 'blue')  tasks.insertBefore(li, document.querySelectorAll('.orange')[0])
+      // if (li.id === 'orange') tasks.insertBefore(li, document.querySelector('.red'))
+      // if (li.id === 'red') reds.append(li)
+//===================================================================================
+    }
       li.appendChild(deleteBtn)
       tasks.appendChild(li)
-    
   }
 });
