@@ -140,6 +140,8 @@ const getWeatherByZip = (zip) => {
     tasksArray.push({name: textField.value, priority: selectMenu.value})
     tasksArray = sortByPriority(tasksArray);
     
+    postTask(textField.value, selectMenu.value);
+
     tasks.innerHTML = ''; // Remove all li's from DOM
     
     for (let task of tasksArray) {
@@ -157,6 +159,8 @@ const getWeatherByZip = (zip) => {
   }
 
   const configObjMaker = (body) => {
+    console.log('configObjMaker')
+    
     return {
       method: 'POST',
       headers: {
@@ -169,7 +173,9 @@ const getWeatherByZip = (zip) => {
 
   // Post task to server
   function postTask(task, priority) {
-    postFetch('http://localhost:3000/tasks', configObjMaker({task, priority}))
+    console.log('postTask')
+    
+    postFetch('http://localhost:3000/tasks', configObjMaker({name: task, priority}))
     .then(res => res)
     .then(data => console.log(data))
     .catch(e => console.error('Problem posting: ', e))

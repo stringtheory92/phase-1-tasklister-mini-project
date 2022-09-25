@@ -1,45 +1,5 @@
 {
   "tasks": [
-    {
-      "task": "hi",
-      "id": 1
-    },
-    {
-      "task": "hi",
-      "id": 2
-    },
-    {
-      "task": "hi",
-      "id": 3
-    },
-    {
-      "task": "hi",
-      "id": 4
-    },
-    {
-      "task": "hi",
-      "id": 5
-    },
-    {
-      "name": "Fred",
-      "age": "99",
-      "comment": "I don't even know where I am",
-      "id": 6
-    },
-    {
-      "id": 7
-    },
-    {
-      "id": 8
-    },
-    {
-      "task": "wash dishes",
-      "id": 9
-    },
-    {
-      "task": "wash dishes",
-      "priority": "backburner",
-      "id": 10
-    }
+    
   ]
 }
