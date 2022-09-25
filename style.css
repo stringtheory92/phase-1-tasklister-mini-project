@@ -76,6 +76,15 @@ button {
   border: 1px solid rgba(156, 113, 255, 0.518);
   padding: .3rem .7rem;
   border-radius: 7px;
+  transition: background-color 1s;
+  transition: outline 0.5s;
+  transition: color 0.5s;
+}
+
+#city-submit:active, #new-task-submit:active {
+  background-color: rgb(116, 171, 189);
+  outline: 1px solid rgba(156, 113, 255, 0.518);
+  color: aliceblue;
 }
 
 #output-box {
