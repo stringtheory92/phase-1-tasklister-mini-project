@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const textField = document.querySelector("#new-task-description")
   const selectMenu = document.querySelector('#priority-menu')
   const list = document.querySelector('#list');
+  const tasks = document.querySelector('#tasks')
   const weatherForm = document.querySelector('#weather-form');
   const cityInput = document.querySelector('#city-input');
   const citySubmit = document.querySelector('#city-submit');
@@ -157,14 +158,17 @@ const sortTasks = () => {
   // Create li for tasks
   const createTodo = (toDo, priority) => {
     
+    // postFetch('http://localhost:3000/tasks', configObjMaker({task: toDo, priority}))
+    // .then(res => res)
+    // .then(data => console.log(data))
+    // .catch(e => console.error('Problem posting: ', e))
+
     const li = document.createElement('li');
     const deleteBtn = document.createElement('button')
     
     li.className = 'todo-item'
     
     
-    // postFetch('http://localhost:3000/tasks', configObjMaker({task: toDo}))
-    // .then(res => console.log(res))
 
     deleteBtn.addEventListener('click', e => {
       e.preventDefault();
@@ -176,40 +180,25 @@ const sortTasks = () => {
     deleteBtn.textContent = 'X';
     deleteBtn.id = 'delete-button'
 
-    if (priority === 'backburner') li.id = 'blue';
-    if (priority === 'moderate') li.id = 'orange';
-    if (priority === 'urgent') li.id = 'red';
-    console.log(list.hasChildNodes(), priority)
+    if (priority === 'backburner') li.className = 'blue';
+    if (priority === 'moderate') li.className = 'orange';
+    if (priority === 'urgent') li.className = 'red';
     //sort and attach:
-    // if (list.hasChildNodes()) {
-    //   console.log('hi again')
-    //   const blues = document.querySelector('#blue')
+    console.log(list.hasChildNodes(), priority)
+     if (tasks.hasChildNodes()) {
+       console.log('hi again')
+        const blues = document.querySelector('.blue')
+        console.log(li.className);
+        console.log(document.querySelectorAll('.orange')[0]);
     //   const oranges = document.querySelector('#orange')
     //   const reds = document.querySelector('#red')
-    //   if (li.id === 'blue') blues.append(li)
-    //   if (li.id === 'orange') oranges.append(li)
+       if (li.className === 'blue') tasks.insertBefore(li, document.querySelectorAll('.orange')[0])}
+       //if (li.id === 'orange') tasks.insertBefore(li, document.querySelector('.red'))
     //   if (li.id === 'red') reds.append(li)
     // }
      
       li.appendChild(deleteBtn)
-      list.appendChild(li)
+      tasks.appendChild(li)
     
   }
-
- 
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
 });

@@ -103,6 +103,13 @@ button {
   padding-bottom: 0.5rem;
 }
 
+#priority-menu {
+  border-radius: 5px;
+  padding: 0.1rem 0.5rem;
+  outline: none;
+  border: none;
+}
+
 #delete-button {
   margin-left: 0.5rem;
   height: 1rem;
@@ -116,13 +123,13 @@ button {
   border: 1px solid rgba(0, 0, 0, 0.07)
 }
 /*----- list item priority colors -------*/
-#blue {
+.blue {
   color: rgb(25, 102, 255);
 }
-#orange {
+.orange {
   color: rgb(186, 127, 0);
 }
-#red {
+.red {
   color:rgb(209, 0, 0);
 }
 
