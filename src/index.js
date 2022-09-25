@@ -1,3 +1,9 @@
+//import * as states from '../node_modules/us-state-converter'
+//const states = require('us-state-converter')
+
+
+
+
 // For weather by city to function, need to source state codes for fetch url
 //Next to add: persist tasks to db.json and add priority sorting
 
@@ -25,6 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const currentWeatherDiv = document.querySelector('#current-weather')
   const weatherDetails = document.querySelector('#weather-details')
   const cityName = document.querySelector('#city-name')
+  let tasksArray = [];
   let zip;
 
 // ========== Day Stuff =============
@@ -52,6 +59,8 @@ document.addEventListener("DOMContentLoaded", () => {
 //=========== Weather Stuff ====================
 const handleWeatherSubmit = e => {
   e.preventDefault();
+//   const listOfStates = states.states()
+// console.log(listOfStates)
   console.log(typeof cityInput.value, cityInput.value)
   console.log(typeof cityInput.value.match(/\d/g), cityInput.value.match(/\d/g))
   console.log(getWeatherByCity(cityInput.value));
@@ -124,16 +133,18 @@ const getWeatherByZip = (zip) => {
 
 //====== Task Lister ==============================
 
-//sort tasks by urgency
-const sortTasks = () => {
-
-}
-
   // Submit Task functionality
   const handleSubmit = e => {
     e.preventDefault();
-    console.log(textField.value, selectMenu.value)
-    createTodo(textField.value, selectMenu.value);
+    
+    tasksArray.push({name: textField.value, priority: selectMenu.value})
+    tasksArray = sortByPriority(tasksArray);
+    
+    tasks.innerHTML = ''; // Remove all li's from DOM
+    
+    for (let task of tasksArray) {
+      createTodo(task.name, task.priority);
+    }
     textField.value = '';
   }
   
@@ -155,52 +166,73 @@ const sortTasks = () => {
       body: JSON.stringify(body), 
     }
   }
+
+  // Post task to server
+  function postTask(task, priority) {
+    postFetch('http://localhost:3000/tasks', configObjMaker({task, priority}))
+    .then(res => res)
+    .then(data => console.log(data))
+    .catch(e => console.error('Problem posting: ', e))
+  }
+
   // Create li for tasks
-  const createTodo = (toDo, priority) => {
-
-//=================== PROBLEM CODE ===============================
-    // postFetch('http://localhost:3000/tasks', configObjMaker({task: toDo, priority}))
-    // .then(res => res)
-    // .then(data => console.log(data))
-    // .catch(e => console.error('Problem posting: ', e))
-//===============================================================
-
+  const createTodo = (name, priority) => {
     const li = document.createElement('li');
     const deleteBtn = document.createElement('button')
-    
-    //li.classList = 'todo-item'
+
+    li.textContent = name;
+    deleteBtn.textContent = 'X';
+    deleteBtn.id = 'delete-button';
+
+    tasks.appendChild(li)
+    li.appendChild(deleteBtn)
     
     deleteBtn.addEventListener('click', e => {
       e.preventDefault();
       const parent = e.target.parentElement;
       parent.remove();
     })
-
-    li.textContent = toDo;
-    deleteBtn.textContent = 'X';
-    deleteBtn.id = 'delete-button'
-
+    
     if (priority === 'backburner') li.className = 'blue todo-item';
     if (priority === 'moderate') li.className = 'orange todo-item';
     if (priority === 'urgent') li.className = 'red todo-item';
-
+  }
+});
+    //=================== PROBLEM CODE ===============================
+        // postFetch('http://localhost:3000/tasks', configObjMaker({task: toDo, priority}))
+        // .then(res => res)
+        // .then(data => console.log(data))
+        // .catch(e => console.error('Problem posting: ', e))
+    //===============================================================
+    
 //=============================== PROBLEM CODE =====================================
     //sort and attach:
-    console.log(tasks.hasChildNodes(), priority)
-    if (!tasks.hasChildNodes()) console.log('first child')
-     if (tasks.hasChildNodes()) {
-       console.log('hi again')
-        const blues = document.querySelector('.blue')
-        console.log(li.className);
-        console.log(document.querySelectorAll('.orange')[0]);
+    //console.log(tasks.hasChildNodes(), priority)
+    // if (!tasks.hasChildNodes()) console.log('first child')
+    //  if (tasks.hasChildNodes()) {
+      //  console.log('hi again', tasks)
+      //   const blues = document.querySelector('.blue')
+      //   console.log(li.className);
+      //   console.log(document.querySelectorAll('.orange')[0]);
     //   const oranges = document.querySelector('#orange')
     //   const reds = document.querySelector('#red')
       // if (li.className === 'blue')  tasks.insertBefore(li, document.querySelectorAll('.orange')[0])
       // if (li.id === 'orange') tasks.insertBefore(li, document.querySelector('.red'))
       // if (li.id === 'red') reds.append(li)
-//===================================================================================
+      // }
+//=================================================================================== 
+ 
+
+function sortByPriority(tasksArray) {
+  return tasksArray.sort((a, b) => {
+    const nameA = a.priority.toUpperCase(); // ignore upper and lowercase
+    const nameB = b.priority.toUpperCase(); // ignore upper and lowercase
+    if (nameA < nameB) {
+      return -1;
     }
-      li.appendChild(deleteBtn)
-      tasks.appendChild(li)
-  }
-});
+    if (nameA > nameB) {
+      return 1;
+    }
+    return 0;
+  });
+}
