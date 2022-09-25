@@ -1,7 +1,9 @@
 //import * as states from '../node_modules/us-state-converter'
 //const states = require('us-state-converter')
 
-
+//UPDATE 9/25: Fetch POST updates to db.json, but browser is refreshed so 
+//displayed tasks are cleared. Need to implement a GET after the POST and 
+//before the for loop/sorting. I think that will accomplish the goal.
 
 
 // For weather by city to function, need to source state codes for fetch url
