@@ -1,5 +1,34 @@
 {
   "tasks": [
-    
+    {
+      "name": "wash dishes",
+      "priority": "backburner",
+      "id": 1
+    },
+    {
+      "name": "Hammer a nail",
+      "priority": "urgent",
+      "id": 2
+    },
+    {
+      "name": "Hammer a nail",
+      "priority": "moderate",
+      "id": 3
+    },
+    {
+      "name": "meditate",
+      "priority": "urgent",
+      "id": 4
+    },
+    {
+      "name": "tank",
+      "priority": "moderate",
+      "id": 5
+    },
+    {
+      "name": "wash dishes",
+      "priority": "moderate",
+      "id": 6
+    }
   ]
 }
